@@ -1,0 +1,29 @@
+# depslib dependency file v1.0
+1338906674 source:c:\users\seth.parson\desktop\seth.parson\develop\projects\screensaver-template\main.cpp
+	<windows.h>
+	<scrnsave.h>
+	<gl\gl.h>
+	<gl\glu.h>
+	<gl\glext.h>
+	<time.h>
+
+1371567688 source:c:\projects\screensavertemplate\c3dcube.cpp
+	"c3dcube.h"
+
+1371642306 c:\projects\screensavertemplate\c3dcube.h
+	<gl\gl.h>
+	<gl\glu.h>
+	<gl\glext.h>
+	<math.h>
+	<time.h>
+	<stdlib.h>
+
+1371642567 source:c:\projects\screensavertemplate\main.cpp
+	<windows.h>
+	<scrnsave.h>
+	<gl\gl.h>
+	<gl\glu.h>
+	<gl\glext.h>
+	<time.h>
+	"c3dcube.h"
+
