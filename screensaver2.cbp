@@ -20,7 +20,7 @@
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="screensaver2.scr" prefix_auto="1" extension_auto="0" />
+				<Option output="cubepocalypse.scr" prefix_auto="1" extension_auto="0" />
 				<Option object_output="obj/Release/" />
 				<Option type="0" />
 				<Option compiler="gcc" />
@@ -45,7 +45,7 @@
 			<Add library="opengl32" />
 			<Add library="scrnsave" />
 		</Linker>
-		<Unit filename="c3dcube.cpp" />
+		<Unit filename="../dlstorm/c3dcube.cpp" />
 		<Unit filename="c3dcube.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>

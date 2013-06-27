@@ -27,3 +27,23 @@
 	<time.h>
 	"c3dcube.h"
 
+1371567688 source:c:\projects\dlstorm\c3dcube.cpp
+	"c3dcube.h"
+
+1371642306 c:\projects\dlstorm\c3dcube.h
+	<gl\gl.h>
+	<gl\glu.h>
+	<gl\glext.h>
+	<math.h>
+	<time.h>
+	<stdlib.h>
+
+1371670491 source:c:\projects\screensaver-cubepocalypse\main.cpp
+	<windows.h>
+	<scrnsave.h>
+	<gl\gl.h>
+	<gl\glu.h>
+	<gl\glext.h>
+	<time.h>
+	"c3dcube.h"
+
