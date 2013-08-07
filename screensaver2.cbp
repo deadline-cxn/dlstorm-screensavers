@@ -45,8 +45,6 @@
 			<Add library="opengl32" />
 			<Add library="scrnsave" />
 		</Linker>
-		<Unit filename="../dlstorm/c3dcube.cpp" />
-		<Unit filename="c3dcube.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />

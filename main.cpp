@@ -4,8 +4,113 @@
 #include <gl\glu.h>
 #include <gl\glext.h>
 #include <time.h>
-#include "c3dcube.h"
+#include <math.h>
+#include <stdlib.h>
+class C3dCube {
+public:
+C3dCube();
+~C3dCube();
+void Draw();
+void Update();
+C3dCube *pNext;
+float x,y,z,xx,yy,zz,xi,yi,zi,xs,ys,zs;
+float xspin,yspin,zspin,xspini,yspini,zspini;
+float cr,cg,cb,rd,gd,bd;
+};
+C3dCube::C3dCube() {
+    pNext=NULL;
+    cr=(float)rand()/((float)RAND_MAX/0.02f);
+    cg=(float)rand()/((float)RAND_MAX/0.02f);
+    cb=(float)rand()/((float)RAND_MAX/0.02f);
+    x=(float)rand()/((float)RAND_MAX);
+    y=(float)rand()/((float)RAND_MAX);
+    z=(float)rand()/((float)RAND_MAX);
+    xi=(float)rand()/((float)RAND_MAX/0.05f);
+    yi=(float)rand()/((float)RAND_MAX/0.05f);
+    zi=(float)rand()/((float)RAND_MAX/0.05f);
+    xs=42.0f+(float)rand()/((float)RAND_MAX/42.0f);
+    ys=42.0f+(float)rand()/((float)RAND_MAX/42.0f);
+    zs=128.0f+(float)rand()/((float)RAND_MAX/12.0f);
+    xspini=(float)rand()/((float)RAND_MAX/3.8f);
+    yspini=(float)rand()/((float)RAND_MAX/3.8f);
+    zspini=(float)rand()/((float)RAND_MAX/3.8f);
+}
+C3dCube::~C3dCube() { }
+void C3dCube::Update() {
+    if((rd==0) || (cr<0)) rd=(float)rand()/((float)RAND_MAX/0.05f);
+    if((gd==0) || (cg<0)) gd=(float)rand()/((float)RAND_MAX/0.05f);
+    if((bd==0) || (cb<0)) bd=(float)rand()/((float)RAND_MAX/0.05f);
+    if(cr>1.0f) { rd=-(float)rand()/((float)RAND_MAX/0.05f); cr=1.0f; }
+    if(cg>1.0f) { gd=-(float)rand()/((float)RAND_MAX/0.05f); cg=1.0f; }
+    if(cb>1.0f) { bd=-(float)rand()/((float)RAND_MAX/0.05f); cb=1.0f; }
+    x+=xi;
+    y+=yi;
+    z+=zi;
+    xx=sin(x)*xs;
+    yy=cos(y)*ys;
+    zz=sin(z)*zs;
+    cr+=rd;
+    cg+=gd;
+    cb+=bd;
+    xspin+=xspini;
+    yspin+=yspini;
+    zspin+=zspini;
+}
+void C3dCube::Draw(){
+    glPushMatrix();
+    glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,1.0f);
+    glTranslated(xx,yy,zz);
 
+    glRotatef(xspin,1.0,0,0);
+    glRotatef(yspin,0,1.0,0);
+    glRotatef(zspin,0,0,1.0);
+
+    glBegin(GL_QUADS);
+
+        glColor3f(cr,cg,cb);
+        // Front Face
+        glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  1.0f);  // Bottom Left Of The Texture and Quad
+        glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  1.0f);  // Bottom Right Of The Texture and Quad
+        glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f,  1.0f);  // Top Right Of The Texture and Quad
+        glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  1.0f);  // Top Left Of The Texture and Quad
+
+        glColor3f(cg,cb,cr);
+        // Back Face
+        glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f, -1.0f);  // Bottom Right Of The Texture and Quad
+        glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);  // Top Right Of The Texture and Quad
+        glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);  // Top Left Of The Texture and Quad
+        glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f, -1.0f, -1.0f);  // Bottom Left Of The Texture and Quad
+
+        glColor3f(cb,cr,cg);
+        // Top Face
+        glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);  // Top Left Of The Texture and Quad
+        glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f,  1.0f,  1.0f);  // Bottom Left Of The Texture and Quad
+        glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f,  1.0f,  1.0f);  // Bottom Right Of The Texture and Quad
+        glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);  // Top Right Of The Texture and Quad
+
+        glColor3f(cr,cb,cg);
+        // Bottom Face
+        glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f, -1.0f, -1.0f);  // Top Right Of The Texture and Quad
+        glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f, -1.0f, -1.0f);  // Top Left Of The Texture and Quad
+        glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  1.0f);  // Bottom Left Of The Texture and Quad
+        glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  1.0f);  // Bottom Right Of The Texture and Quad
+
+        glColor3f(cb,cg,cr);
+        // Right face
+        glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, -1.0f, -1.0f);  // Bottom Right Of The Texture and Quad
+        glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);  // Top Right Of The Texture and Quad
+        glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f,  1.0f,  1.0f);  // Top Left Of The Texture and Quad
+        glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  1.0f);  // Bottom Left Of The Texture and Quad
+        // Left Face
+
+        glColor3f(cg,cr,cb);
+        glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f, -1.0f);  // Bottom Left Of The Texture and Quad
+        glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  1.0f);  // Bottom Right Of The Texture and Quad
+        glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  1.0f);  // Top Right Of The Texture and Quad
+        glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);  // Top Left Of The Texture and Quad
+    glEnd();
+    glPopMatrix();
+}
 // Declarations
 C3dCube *pCube;
 C3dCube *pFirstCube;
@@ -17,7 +122,6 @@ HGLRC				hRC=NULL;
 HWND				hWnd=NULL;
 HINSTANCE			hInstance;
 int uTimer;
-
 LONG WINAPI ScreenSaverProc(HWND hwnd,UINT message,WPARAM wparam,LPARAM lparam){
     // Handles screen saver messages
     switch(message)
@@ -49,15 +153,12 @@ LONG WINAPI ScreenSaverProc(HWND hwnd,UINT message,WPARAM wparam,LPARAM lparam){
     }
     return DefScreenSaverProc(hwnd,message,wparam,lparam);
 }
-
 BOOL WINAPI ScreenSaverConfigureDialog(HWND hwnd,UINT message,WPARAM wparam,LPARAM lparam){
     return true;
 }
-
 BOOL WINAPI RegisterDialogClasses(HANDLE hmodule){
     return true;
 }
-
 bool SetupOpenGL(){
 
     srand((unsigned)time(0));
@@ -155,7 +256,6 @@ bool SetupOpenGL(){
     }
     return TRUE;									// Success
 }
-
 void KillGL(void){
 
     // Delete cubes
@@ -174,32 +274,26 @@ void KillGL(void){
 	}
 	ReleaseDC(hWnd,hDC);							// Release The DC
 }
-
 void DrawGLScene(){
     static float ri,gi,bi;
     static float cr,cg,cb;
-
     if((ri==0) || (cr<0)) ri=(float)rand()/((float)RAND_MAX/0.002f);
     if((gi==0) || (cg<0)) gi=(float)rand()/((float)RAND_MAX/0.002f);
     if((bi==0) || (cb<0)) bi=(float)rand()/((float)RAND_MAX/0.002f);
-
     if(cr>1.0f) { cr=1.0f; ri=-(float)rand()/((float)RAND_MAX/0.002f);}
     if(cg>1.0f) { cg=1.0f; gi=-(float)rand()/((float)RAND_MAX/0.002f);}
     if(cb>1.0f) { cb=1.0f; bi=-(float)rand()/((float)RAND_MAX/0.002f);}
-
     cr+=ri;
     cg+=gi;
     cb+=bi;
-
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+    glLoadIdentity();
     pCube=pFirstCube;
     while(pCube->pNext) {
         pCube->Update();
         pCube->Draw();
         pCube=pCube->pNext;
     }
-
 	SwapBuffers(hDC);
 }
 

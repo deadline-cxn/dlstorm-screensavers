@@ -47,3 +47,13 @@
 	<time.h>
 	"c3dcube.h"
 
+1375894383 source:h:\develop\projects\screensaver-cubepocalypse\main.cpp
+	<windows.h>
+	<scrnsave.h>
+	<gl\gl.h>
+	<gl\glu.h>
+	<gl\glext.h>
+	<time.h>
+	<math.h>
+	<stdlib.h>
+
